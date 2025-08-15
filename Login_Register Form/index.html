@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futuristic Login & Register</title>
+<style>
+
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .video-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+
+
+    .auth-container {
+        display: flex;
+        background: rgba(0,0,0,0.85);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 25px rgba(0, 255, 170, 0.6);
+        width: 900px;
+        max-width: 95%;
+    }
+
+    .auth-image {
+        flex: 1;
+        background: url('images/space.jpg') no-repeat center center/cover;
+        filter: brightness(1.1) contrast(1.1);
+    }
+
+    .auth-form {
+        flex: 1;
+        padding: 40px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(10,10,10,0.95) 100%);
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #00ffcc;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background: rgba(250, 247, 247, 0.1);
+        color: #fff;
+        font-size: 14px;
+    }
+
+    label {
+        font-size: 13px;
+        color: #ccc;
+    }
+
+    .checkboxes {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .checkboxes label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    button {
+        padding: 12px;
+        background: #00ffcc;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 10px;
+        color: #000;
+    }
+
+    button:hover {
+        background: #00ccaa;
+    }
+
+    .toggle-link {
+        margin-top: 15px;
+        color: #aaa;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .toggle-link:hover {
+        color: #fff;
+    }
+
+    .reg-country {
+        color:#000;
+    }
+
+    select option {
+    background: #111; 
+    color: #fff;
+}
+</style>
+</head>
+<body>
+
+<video autoplay muted loop class="video-bg">
+    <source src="images/Spacevideo.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+</video>
+
+<div class="auth-container">
+    <div class="auth-image"></div>
+
+    <div class="auth-form">
+        <h2 id="form-title">User Login</h2>
+
+        <!-- LOGIN -->
+        <div id="login-form">
+            <input type="text" placeholder="Username / Email" id="login-username">
+            <input type="password" placeholder="Password" id="login-password">
+            <button onclick="login()">Log In</button>
+            <div class="toggle-link" onclick="toggleForm('register')">Don't have an account? Register</div>
+        </div>
+
+        <!-- REGISTER -->
+        <div id="register-form" style="display:none;">
+            <input type="text" placeholder="Username" id="reg-username">
+            <input type="password" placeholder="Password (min 8 chars)" id="reg-password">
+            <input type="number" placeholder="Age" id="reg-age" min="16">
+            
+            <select id="reg-gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            
+            <div class="checkboxes">
+                <label><input type="checkbox"> High School</label>
+                <label><input type="checkbox"> Bachelor’s</label>
+                <label><input type="checkbox"> Master’s</label>
+            </div>
+            
+            <select id="reg-country">
+                <option value="">Select Country</option>
+                <option>Sri Lanka</option>
+                <option>USA</option>
+                <option>UK</option>
+                <option>India</option>
+            </select>
+            
+            <button onclick="register()">Register</button>
+            <div class="toggle-link" onclick="toggleForm('login')">Already have an account? Login</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleForm(form) {
+        if (form === 'register') {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+            document.getElementById('form-title').innerText = 'User Registration';
+        } else {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('form-title').innerText = 'User Login';
+        }
+    }
+
+    function login() {
+        let username = document.getElementById('login-username').value;
+        let password = document.getElementById('login-password').value;
+        if (username && password) {
+            alert('Login successful for ' + username);
+        } else {
+            alert('Please fill all fields');
+        }
+    }
+
+    function register() {
+        let username = document.getElementById('reg-username').value;
+        let password = document.getElementById('reg-password').value;
+        let age = document.getElementById('reg-age').value;
+        let gender = document.getElementById('reg-gender').value;
+        let country = document.getElementById('reg-country').value;
+        if (!username || !password || !age || !gender ||!country) {
+            alert('Please fill all required fields');
+            return;
+        }
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters');
+            return;
+        }
+        if (age < 16) {
+            alert('Age must be over 15');
+            return;
+        }
+        alert('Registration successful for ' + username);
+        toggleForm('login');
+    }
+</script>
+</body>
+</html>
